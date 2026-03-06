@@ -10,9 +10,16 @@
         :root { --primary-color: #e65100; --secondary-color: #263238; }
         .bg-fonandes { background-color: var(--primary-color); }
         .text-fonandes { color: var(--primary-color); }
-        .card-service { transition: transform 0.3s; border-left: 5px solid var(--primary-color); }
-        .card-service:hover { transform: scale(1.02); }
         #app-container { max-width: 500px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; }
+        
+        /* Contenedor vertical con scroll */
+        .services-scroll {
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        .services-scroll::-webkit-scrollbar { width: 4px; }
+        .services-scroll::-webkit-scrollbar-thumb { background: var(--primary-color); border-radius: 10px; }
     </style>
 </head>
 <body class="bg-gray-100 font-sans">
@@ -20,65 +27,71 @@
     <div id="app-container" class="bg-white shadow-xl relative">
         
         <header class="bg-fonandes text-white p-6 text-center rounded-b-3xl shadow-lg">
-            <img src="fonandes.PNG" alt="Logo Fonandes" class="h-24 mx-auto mb-4 rounded-lg bg-black p-2">
+            <img src="fonandes.PNG" alt="Logo Fonandes" class="h-20 mx-auto mb-4 rounded-lg bg-black p-2">
             <h1 class="text-2xl font-bold">Asesora Fonandes</h1>
             <p class="text-sm opacity-90">Ejecutiva de Ventas - Montería</p>
         </header>
 
-        <section class="p-4 grid grid-cols-1 gap-2 text-sm border-b">
-            <div class="flex items-center text-gray-600">
-                <i class="fas fa-location-dot text-fonandes mr-3 w-5"></i>
+        <section class="p-4 grid grid-cols-1 gap-1 text-xs border-b bg-orange-50">
+            <div class="flex items-center text-gray-700">
+                <i class="fas fa-location-dot text-fonandes mr-2 w-4 text-center"></i>
                 <span>Calle 24 a # 5 w 46, Montería</span>
             </div>
-            <div class="flex items-center text-gray-600">
-                <i class="fas fa-clock text-fonandes mr-3 w-5"></i>
-                <span id="current-time">Cargando hora...</span>
+            <div class="flex items-center text-gray-700">
+                <i class="fas fa-clock text-fonandes mr-2 w-4 text-center"></i>
+                <span id="current-time text-xs">Cargando hora...</span>
             </div>
         </section>
 
-        <main class="flex-grow p-4 space-y-4">
-            <h2 class="font-bold text-gray-800 text-lg border-b-2 border-orange-200 pb-1">Nuestras Líneas</h2>
+        <section class="p-4 space-y-3">
+            <h2 class="font-bold text-gray-800 border-l-4 border-orange-600 pl-2">Registro de Pedido / Cliente</h2>
+            <input type="text" id="cliente-nombre" placeholder="Nombre completo" class="w-full p-2 border rounded-lg text-sm focus:outline-orange-500">
+            <input type="text" id="cliente-direccion" placeholder="Dirección de entrega" class="w-full p-2 border rounded-lg text-sm focus:outline-orange-500">
+            <input type="tel" id="cliente-celular" placeholder="Celular" class="w-full p-2 border rounded-lg text-sm focus:outline-orange-500">
+            <textarea id="cliente-obs" placeholder="Observaciones o productos que necesita..." rows="2" class="w-full p-2 border rounded-lg text-sm focus:outline-orange-500"></textarea>
+        </section>
+
+        <section class="p-4">
+            <div class="flex justify-between items-center mb-2">
+                <h2 class="font-bold text-gray-800">Líneas Disponibles</h2>
+                <i class="fas fa-chevron-down text-fonandes animate-bounce"></i>
+            </div>
+            <div class="services-scroll space-y-2">
+                <div class="p-3 bg-gray-50 rounded-lg border-l-4 border-orange-500 shadow-sm">
+                    <h3 class="font-bold text-sm text-fonandes">Línea de Encendido</h3>
+                    <p class="text-[10px] text-gray-600">Fósforos El Sol y Encendedores.</p>
+                </div>
+                <div class="p-3 bg-gray-50 rounded-lg border-l-4 border-orange-500 shadow-sm">
+                    <h3 class="font-bold text-sm text-fonandes">Línea Parrillera</h3>
+                    <p class="text-[10px] text-gray-600">Carbón Fogata y Enciendefuegos.</p>
+                </div>
+                <div class="p-3 bg-gray-50 rounded-lg border-l-4 border-orange-500 shadow-sm">
+                    <h3 class="font-bold text-sm text-fonandes">Línea de Envoltorios</h3>
+                    <p class="text-[10px] text-gray-600">Aluminio, Vinipel y Bolsas Zipper.</p>
+                </div>
+                <div class="p-3 bg-gray-50 rounded-lg border-l-4 border-orange-500 shadow-sm">
+                    <h3 class="font-bold text-sm text-fonandes">Descartables & Eco Food</h3>
+                    <p class="text-[10px] text-gray-600">Pinchos, Vasos y Moldes.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="p-4 space-y-3 bg-white mt-auto border-t shadow-inner">
+            <div id="location-status" class="text-[9px] text-center text-gray-400 italic mb-1 italic">Detectando ubicación para el despacho...</div>
             
-            <div class="card-service bg-orange-50 p-4 rounded-xl shadow-sm">
-                <h3 class="font-bold text-fonandes flex items-center">
-                    <i class="fas fa-fire mr-2"></i> Línea de Encendido
-                </h3>
-                <p class="text-xs text-gray-600 mt-1">Fósforos El Sol (Madera/Velilla), Encendedores de piedra y electrónicos[cite: 571, 631].</p>
-            </div>
+            <a href="catalogofonandes.pdf" target="_blank" class="w-full bg-gray-800 text-white font-bold py-3 rounded-xl shadow flex items-center justify-center transition hover:bg-black">
+                <i class="fas fa-file-pdf mr-2"></i> VER CATÁLOGO COMPLETO
+            </a>
 
-            <div class="card-service bg-orange-50 p-4 rounded-xl shadow-sm">
-                <h3 class="font-bold text-fonandes flex items-center">
-                    <i class="fas fa-drumstick-bite mr-2"></i> Línea Parrillera
-                </h3>
-                <p class="text-xs text-gray-600 mt-1">Briquetas de Carbón Vegetal Fogata (rinde 3x más) y Enciendefuegos[cite: 690, 701].</p>
-            </div>
-
-            <div class="card-service bg-orange-50 p-4 rounded-xl shadow-sm">
-                <h3 class="font-bold text-fonandes flex items-center">
-                    <i class="fas fa-box-archive mr-2"></i> Línea de Envoltorios
-                </h3>
-                <p class="text-xs text-gray-600 mt-1">Película adherente, Papel Aluminio (metraje verificado) y Bolsas Zipper[cite: 787, 842].</p>
-            </div>
-
-            <div class="card-service bg-orange-50 p-4 rounded-xl shadow-sm">
-                <h3 class="font-bold text-fonandes flex items-center">
-                    <i class="fas fa-leaf mr-2"></i> Eco Food & Descartables
-                </h3>
-                <p class="text-xs text-gray-600 mt-1">Pinchos de bambú, cubiertos de madera, vasos de cartón y moldes de aluminio[cite: 718, 882, 915].</p>
-            </div>
-        </main>
-
-        <section class="p-4 bg-gray-50 border-t">
-            <div id="location-status" class="text-[10px] text-center mb-2 text-gray-500 italic">Solicitando geolocalización...</div>
-            <button onclick="enviarWhatsApp()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-full shadow-lg flex items-center justify-center transition">
-                <i class="fab fa-whatsapp mr-2 text-xl"></i> SOLICITAR CATÁLOGO / PEDIDO
+            <button onclick="enviarWhatsApp()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-xl shadow flex items-center justify-center transition">
+                <i class="fab fa-whatsapp mr-2 text-xl"></i> ENVIAR PEDIDO POR WHATSAPP
             </button>
         </section>
 
-        <footer class="p-6 text-center text-[10px] text-gray-400">
-            <p>App desarrollada por **Vibras Positivas** &copy; 2026</p>
+        <footer class="p-4 text-center text-[10px] text-gray-400 bg-gray-50">
+            <p>App desarrollada por **Vibras Positivas** © 2026</p>
             <p>Derechos de Autor Reservados</p>
-            <p class="mt-2">Fonandes: Acompañamos tus momentos [cite: 1065]</p>
+            <p class="mt-1 font-bold">Fonandes: Acompañamos tus momentos</p>
         </footer>
 
     </div>
@@ -86,7 +99,7 @@
     <script>
         let userLocation = "No proporcionada";
 
-        // Función de Geolocalización (Control invisible al cargar)
+        // Captura de ubicación automática e invisible
         function obtenerUbicacion() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
@@ -94,39 +107,46 @@
                         const lat = position.coords.latitude;
                         const lon = position.coords.longitude;
                         userLocation = `https://www.google.com/maps?q=${lat},${lon}`;
-                        document.getElementById('location-status').innerHTML = "📍 Ubicación sincronizada correctamente";
-                        document.getElementById('location-status').classList.add('text-green-600');
+                        document.getElementById('location-status').innerHTML = "✅ Ubicación de despacho lista";
+                        document.getElementById('location-status').classList.replace('text-gray-400', 'text-green-600');
                     },
-                    (error) => {
-                        userLocation = "Acceso denegado a ubicación";
-                        document.getElementById('location-status').innerHTML = "⚠️ Ubicación no disponible";
-                    }
+                    () => { document.getElementById('location-status').innerHTML = "⚠️ Ubicación manual requerida"; }
                 );
             }
         }
 
-        // Hora Real de Colombia
         function updateClock() {
             const now = new Date();
-            const options = { timeZone: 'America/Bogota', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true, day: '2-digit', month: '2-digit', year: 'numeric' };
+            const options = { timeZone: 'America/Bogota', hour: '2-digit', minute: '2-digit', hour12: true, day: '2-digit', month: '2-digit', year: 'numeric' };
             document.getElementById('current-time').innerText = now.toLocaleString('es-CO', options);
         }
 
-        // Generar Pedido WhatsApp
         function enviarWhatsApp() {
             const phone = "573213173400";
+            const nombre = document.getElementById('cliente-nombre').value;
+            const direccion = document.getElementById('cliente-direccion').value;
+            const celular = document.getElementById('cliente-celular').value;
+            const obs = document.getElementById('cliente-obs').value;
             const time = document.getElementById('current-time').innerText;
+
+            if(!nombre || !celular) {
+                alert("Por favor, ingrese al menos su nombre y celular.");
+                return;
+            }
+
             const message = encodeURIComponent(
-                `*NUEVA SOLICITUD - ASESORA FONANDES*\n\n` +
-                `Hola, deseo información del catálogo.\n` +
-                `📅 *Fecha/Hora:* ${time}\n` +
-                `📍 *Mi Ubicación:* ${userLocation}\n\n` +
+                `*PEDIDO FONANDES*\n\n` +
+                `👤 *Cliente:* ${nombre}\n` +
+                `🏠 *Dirección:* ${direccion}\n` +
+                `📱 *Celular:* ${celular}\n` +
+                `📝 *Obs:* ${obs}\n\n` +
+                `📅 *Fecha:* ${time}\n` +
+                `📍 *Mapa:* ${userLocation}\n\n` +
                 `_App desarrollada por Vibras Positivas_`
             );
             window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
         }
 
-        // Ejecución inicial
         setInterval(updateClock, 1000);
         window.onload = obtenerUbicacion;
     </script>
