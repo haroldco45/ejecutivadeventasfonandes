@@ -1,1 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asesora Fonandes - Portafolio Oficial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --primary-color: #e65100; --secondary-color: #263238; }
+        .bg-fonandes { background-color: var(--primary-color); }
+        .text-fonandes { color: var(--primary-color); }
+        .card-service { transition: transform 0.3s; border-left: 5px solid var(--primary-color); }
+        .card-service:hover { transform: scale(1.02); }
+        #app-container { max-width: 500px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
 
+    <div id="app-container" class="bg-white shadow-xl relative">
+        
+        <header class="bg-fonandes text-white p-6 text-center rounded-b-3xl shadow-lg">
+            <img src="fonandes.PNG" alt="Logo Fonandes" class="h-24 mx-auto mb-4 rounded-lg bg-black p-2">
+            <h1 class="text-2xl font-bold">Asesora Fonandes</h1>
+            <p class="text-sm opacity-90">Ejecutiva de Ventas - Montería</p>
+        </header>
+
+        <section class="p-4 grid grid-cols-1 gap-2 text-sm border-b">
+            <div class="flex items-center text-gray-600">
+                <i class="fas fa-location-dot text-fonandes mr-3 w-5"></i>
+                <span>Calle 24 a # 5 w 46, Montería</span>
+            </div>
+            <div class="flex items-center text-gray-600">
+                <i class="fas fa-clock text-fonandes mr-3 w-5"></i>
+                <span id="current-time">Cargando hora...</span>
+            </div>
+        </section>
+
+        <main class="flex-grow p-4 space-y-4">
+            <h2 class="font-bold text-gray-800 text-lg border-b-2 border-orange-200 pb-1">Nuestras Líneas</h2>
+            
+            <div class="card-service bg-orange-50 p-4 rounded-xl shadow-sm">
+                <h3 class="font-bold text-fonandes flex items-center">
+                    <i class="fas fa-fire mr-2"></i> Línea de Encendido
+                </h3>
+                <p class="text-xs text-gray-600 mt-1">Fósforos El Sol (Madera/Velilla), Encendedores de piedra y electrónicos[cite: 571, 631].</p>
+            </div>
+
+            <div class="card-service bg-orange-50 p-4 rounded-xl shadow-sm">
+                <h3 class="font-bold text-fonandes flex items-center">
+                    <i class="fas fa-drumstick-bite mr-2"></i> Línea Parrillera
+                </h3>
+                <p class="text-xs text-gray-600 mt-1">Briquetas de Carbón Vegetal Fogata (rinde 3x más) y Enciendefuegos[cite: 690, 701].</p>
+            </div>
+
+            <div class="card-service bg-orange-50 p-4 rounded-xl shadow-sm">
+                <h3 class="font-bold text-fonandes flex items-center">
+                    <i class="fas fa-box-archive mr-2"></i> Línea de Envoltorios
+                </h3>
+                <p class="text-xs text-gray-600 mt-1">Película adherente, Papel Aluminio (metraje verificado) y Bolsas Zipper[cite: 787, 842].</p>
+            </div>
+
+            <div class="card-service bg-orange-50 p-4 rounded-xl shadow-sm">
+                <h3 class="font-bold text-fonandes flex items-center">
+                    <i class="fas fa-leaf mr-2"></i> Eco Food & Descartables
+                </h3>
+                <p class="text-xs text-gray-600 mt-1">Pinchos de bambú, cubiertos de madera, vasos de cartón y moldes de aluminio[cite: 718, 882, 915].</p>
+            </div>
+        </main>
+
+        <section class="p-4 bg-gray-50 border-t">
+            <div id="location-status" class="text-[10px] text-center mb-2 text-gray-500 italic">Solicitando geolocalización...</div>
+            <button onclick="enviarWhatsApp()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-full shadow-lg flex items-center justify-center transition">
+                <i class="fab fa-whatsapp mr-2 text-xl"></i> SOLICITAR CATÁLOGO / PEDIDO
+            </button>
+        </section>
+
+        <footer class="p-6 text-center text-[10px] text-gray-400">
+            <p>App desarrollada por **Vibras Positivas** &copy; 2026</p>
+            <p>Derechos de Autor Reservados</p>
+            <p class="mt-2">Fonandes: Acompañamos tus momentos [cite: 1065]</p>
+        </footer>
+
+    </div>
+
+    <script>
+        let userLocation = "No proporcionada";
+
+        // Función de Geolocalización (Control invisible al cargar)
+        function obtenerUbicacion() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const lat = position.coords.latitude;
+                        const lon = position.coords.longitude;
+                        userLocation = `https://www.google.com/maps?q=${lat},${lon}`;
+                        document.getElementById('location-status').innerHTML = "📍 Ubicación sincronizada correctamente";
+                        document.getElementById('location-status').classList.add('text-green-600');
+                    },
+                    (error) => {
+                        userLocation = "Acceso denegado a ubicación";
+                        document.getElementById('location-status').innerHTML = "⚠️ Ubicación no disponible";
+                    }
+                );
+            }
+        }
+
+        // Hora Real de Colombia
+        function updateClock() {
+            const now = new Date();
+            const options = { timeZone: 'America/Bogota', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true, day: '2-digit', month: '2-digit', year: 'numeric' };
+            document.getElementById('current-time').innerText = now.toLocaleString('es-CO', options);
+        }
+
+        // Generar Pedido WhatsApp
+        function enviarWhatsApp() {
+            const phone = "573213173400";
+            const time = document.getElementById('current-time').innerText;
+            const message = encodeURIComponent(
+                `*NUEVA SOLICITUD - ASESORA FONANDES*\n\n` +
+                `Hola, deseo información del catálogo.\n` +
+                `📅 *Fecha/Hora:* ${time}\n` +
+                `📍 *Mi Ubicación:* ${userLocation}\n\n` +
+                `_App desarrollada por Vibras Positivas_`
+            );
+            window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+        }
+
+        // Ejecución inicial
+        setInterval(updateClock, 1000);
+        window.onload = obtenerUbicacion;
+    </script>
+</body>
+</html>
