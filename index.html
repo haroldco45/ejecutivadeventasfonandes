@@ -32,34 +32,37 @@
         <header class="bg-fonandes text-white p-6 text-center rounded-b-3xl shadow-lg">
             <img src="fonandes.PNG" alt="Logo Fonandes" class="h-20 mx-auto mb-4 rounded-lg bg-black p-2">
             <h1 class="text-2xl font-bold">Asesora Fonandes</h1>
-            <p class="text-sm opacity-90">Ejecutiva de Ventas - Montería</p>
+            <p class="text-sm opacity-90 italic">"Acompañamos tus momentos"</p>
         </header>
 
-        <section class="p-4 grid grid-cols-1 gap-1 text-xs border-b bg-orange-50">
-            <div class="flex items-center">
-                <i class="fas fa-location-dot text-fonandes mr-2 w-4 text-center"></i>
-                <span>Calle 24 a # 5 w 46, Montería</span>
+        <section class="p-4 grid grid-cols-2 gap-2 text-[11px] border-b bg-orange-50 font-bold">
+            <div class="flex items-center justify-center border-r border-orange-200">
+                <i class="fas fa-city text-fonandes mr-2"></i>
+                <span>MONTERÍA</span>
             </div>
-            <div class="flex items-center">
-                <i class="fas fa-clock text-fonandes mr-2 w-4 text-center"></i>
-                <span id="current-time">Cargando hora...</span>
+            <div class="flex items-center justify-center">
+                <i class="fab fa-whatsapp text-green-600 mr-2 text-sm"></i>
+                <span>3213173400</span>
             </div>
         </section>
 
+        <section class="px-4 py-2 text-center text-[10px] text-gray-500 bg-gray-50">
+            <i class="fas fa-clock mr-1"></i> <span id="current-time">Cargando hora...</span>
+        </section>
+
         <section class="p-4 space-y-3">
-            <h2 class="font-bold border-l-4 border-orange-600 pl-2">Datos del Cliente</h2>
+            <h2 class="font-bold border-l-4 border-orange-600 pl-2 text-sm">Registro de Cliente</h2>
             <div class="space-y-2">
                 <input type="text" id="cliente-nombre" placeholder="Nombre completo" class="w-full p-2.5 border rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none">
-                <input type="text" id="cliente-direccion" placeholder="Dirección de entrega" class="w-full p-2.5 border rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none">
+                <input type="text" id="cliente-direccion" placeholder="Dirección del negocio / entrega" class="w-full p-2.5 border rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none">
                 <input type="tel" id="cliente-celular" placeholder="Número de Celular" class="w-full p-2.5 border rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none">
             </div>
         </section>
 
         <section class="p-4 bg-gray-50">
             <div class="flex justify-between items-center mb-2">
-                <h2 class="font-bold text-gray-800">¿Qué servicio requiere hoy?</h2>
+                <h2 class="font-bold text-gray-800 text-sm italic">Gestión de Ventas</h2>
                 <div class="flex space-x-2">
-                    <i class="fas fa-arrow-up text-xs text-gray-400"></i>
                     <i class="fas fa-arrow-down text-xs text-fonandes animate-bounce"></i>
                 </div>
             </div>
@@ -69,7 +72,7 @@
                     <div class="bg-orange-100 p-2 rounded-lg mr-3"><i class="fas fa-user-tie text-fonandes"></i></div>
                     <div>
                         <h3 class="font-bold text-sm">Solicitar Visita</h3>
-                        <p class="text-[10px] text-gray-500">Agendar atención en mi negocio.</p>
+                        <p class="text-[10px] text-gray-500">Agendar atención personalizada.</p>
                     </div>
                 </div>
 
@@ -77,7 +80,7 @@
                     <div class="bg-orange-100 p-2 rounded-lg mr-3"><i class="fas fa-book-open text-fonandes"></i></div>
                     <div>
                         <h3 class="font-bold text-sm">Hablar del Catálogo</h3>
-                        <p class="text-[10px] text-gray-500">Dudas sobre productos y precios.</p>
+                        <p class="text-[10px] text-gray-500">Consultar portafolio y precios.</p>
                     </div>
                 </div>
 
@@ -85,7 +88,7 @@
                     <div class="bg-orange-100 p-2 rounded-lg mr-3"><i class="fas fa-bullhorn text-fonandes"></i></div>
                     <div>
                         <h3 class="font-bold text-sm">Novedades en la Zona</h3>
-                        <p class="text-[10px] text-gray-500">Conocer promociones vigentes.</p>
+                        <p class="text-[10px] text-gray-500">Promociones y nuevos lanzamientos.</p>
                     </div>
                 </div>
 
@@ -97,11 +100,11 @@
                     </div>
                 </div>
             </div>
-            <textarea id="cliente-obs" placeholder="Detalles adicionales (Ej: qué productos busca)..." rows="2" class="w-full mt-3 p-2.5 border rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none"></textarea>
+            <textarea id="cliente-obs" placeholder="Detalles de su solicitud..." rows="2" class="w-full mt-3 p-2.5 border rounded-lg text-sm focus:ring-2 focus:ring-orange-500 outline-none"></textarea>
         </section>
 
         <section class="p-4 space-y-3 mt-auto bg-white border-t">
-            <div id="location-status" class="text-[10px] text-center text-gray-400 italic mb-1">Iniciando geolocalización...</div>
+            <div id="location-status" class="text-[10px] text-center text-gray-400 italic mb-1">Detectando ubicación para despacho...</div>
             
             <a href="catalogofonandes.pdf" target="_blank" class="w-full bg-gray-800 text-white font-bold py-3.5 rounded-xl shadow-lg flex items-center justify-center transition active:scale-95">
                 <i class="fas fa-file-pdf mr-2"></i> VER CATÁLOGO PDF
@@ -137,7 +140,7 @@
                         const lat = position.coords.latitude;
                         const lon = position.coords.longitude;
                         userLocation = `https://www.google.com/maps?q=${lat},${lon}`;
-                        document.getElementById('location-status').innerHTML = "✅ Ubicación de despacho lista";
+                        document.getElementById('location-status').innerHTML = "✅ Ubicación vinculada correctamente";
                         document.getElementById('location-status').className = "text-[10px] text-center text-green-600 font-bold mb-1";
                     },
                     () => { document.getElementById('location-status').innerHTML = "⚠️ Ubicación no detectada"; }
